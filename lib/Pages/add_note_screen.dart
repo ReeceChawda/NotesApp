@@ -4,17 +4,27 @@ import 'package:flutter/material.dart';
 import '../models/note_model.dart';
 
 class AddNoteScreen extends StatefulWidget {
-  const AddNoteScreen({super.key});
+  final Note? editingNote;
+
+  const AddNoteScreen({Key? key, this.editingNote}) : super(key: key);
 
   @override
-  _AddNoteScreenState createState() {
-    return _AddNoteScreenState();
-  }
+  _AddNoteScreenState createState() => _AddNoteScreenState();
 }
 
 class _AddNoteScreenState extends State<AddNoteScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.editingNote != null) {
+      _titleController.text = widget.editingNote!.title;
+      _contentController.text = widget.editingNote!.content;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
