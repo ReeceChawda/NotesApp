@@ -30,45 +30,66 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          controller: _titleController,
-          decoration: const InputDecoration(
-            hintText: 'Enter Title',
-            border: InputBorder.none,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: TextField(
+            controller: _titleController,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            decoration: const InputDecoration(
+              hintText: 'Title',
+              hintStyle: TextStyle(
+                color: Colors.grey,
+              ),
+              border: InputBorder.none,
+            ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextField(
-                controller: _contentController,
-                decoration: const InputDecoration(
-                  hintText: 'Note',
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _contentController,
+              style: const TextStyle(fontSize: 16),
+              decoration: const InputDecoration(
+                hintText: 'Note',
+                hintStyle: TextStyle(
+                  color: Colors.grey,
                 ),
-                maxLines: null,
+                border: InputBorder.none,
               ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(
-                    context,
-                    Note(
-                      title: _titleController.text,
-                      content: _contentController.text,
-                      dateTime: DateTime.now(),
-                    ),
-                  );
-                },
-                child: const Text('Save'),
-              ),
-            ],
+              maxLines: null,
+            ),
           ),
-        ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      Note(
+                        title: _titleController.text,
+                        content: _contentController.text,
+                        dateTime: DateTime.now(),
+                      ),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Icon(Icons.save),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+

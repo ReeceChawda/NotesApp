@@ -5,7 +5,6 @@ import '../models/note_model.dart';
 import 'add_note_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
-import 'drawer_screen.dart';
 
 class NotesList extends StatefulWidget {
   const NotesList({super.key});
@@ -17,7 +16,6 @@ class NotesList extends StatefulWidget {
 class _NotesListState extends State<NotesList> {
   late Box<Note> notesBox;
   late List<Note> notes;
-  String selectedDrawerItem = ''; // keeps track of the selected drawer option
 
   @override
   void initState() {
@@ -29,46 +27,93 @@ class _NotesListState extends State<NotesList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 30, 30, 30),
       appBar: AppBar(
-        title: const Text('Notes App'),
-      ),
-      drawer: DrawerScreen(
-        onDrawerItemPressed: _handleDrawerItemPressed,
+        title: const Text(
+          'Notes App',
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 109, 123, 100),
       ),
       body: ListView.builder(
         itemCount: notes.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(notes[index].title),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(notes[index].content),
-                Text(
-                  _formatDateTime(notes[index].dateTime),
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
+          return Card(
+            elevation: 5,
+            margin: const EdgeInsets.fromLTRB(8, 15, 8, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton (
-                  icon: const Icon(Icons.delete_sharp),
-                  onPressed: () => _confirmDelete(context, notes[index]),
+            color: const Color.fromARGB(255, 109, 123, 100),
+            child: ListTile(
+              title: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Text(
+                  notes[index].title,
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.edit_sharp),
-                  onPressed: () => _editNote(context, notes[index]),
-                ),
-              ],
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Divider(
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                    child: Text(
+                      notes[index].content,
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w200,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: Text(
+                      _formatDateTime(notes[index].dateTime),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromARGB(100, 255, 255, 255),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // trailing: Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     IconButton(
+              //         icon: const Icon(Icons.delete_sharp),
+              //         onPressed: () => _confirmDelete(context, notes[index]),
+              //         color: Colors.white,
+              //       ),
+              //     IconButton(
+              //       icon: const Icon(Icons.edit_sharp),
+              //       onPressed: () => _editNote(context, notes[index]),
+              //       color: Colors.white,
+              //     ),
+              //   ],
+              // ),
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNote,
-        tooltip: 'Add Note',
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        backgroundColor: const Color.fromARGB(255, 109, 123, 100),
         child: const Icon(Icons.add),
       ),
     );
@@ -105,12 +150,6 @@ class _NotesListState extends State<NotesList> {
     }
   }
 
-  void _handleDrawerItemPressed(String selectedItem) {
-    setState(() {
-      selectedDrawerItem = selectedItem;
-    });
-  }
-
   void _confirmDelete(BuildContext context, Note note) {
     showDialog(
       context: context,
@@ -144,8 +183,6 @@ class _NotesListState extends State<NotesList> {
       notesBox.delete(note.key);
     });
   }
-
-
 
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('dd MMM yyyy\nhh:mm a').format(dateTime);
