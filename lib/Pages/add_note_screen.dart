@@ -1,5 +1,4 @@
 // add_note_screen.dart
-
 import 'package:flutter/material.dart';
 import '../models/note_model.dart';
 
@@ -29,67 +28,75 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 30, 30, 30),
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: TextField(
             controller: _titleController,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
             decoration: const InputDecoration(
-              hintText: 'Title',
+              hintText: 'Enter Title',
               hintStyle: TextStyle(
-                color: Colors.grey,
+                color: Color.fromARGB(100, 255, 255, 255),
               ),
               border: InputBorder.none,
             ),
+            cursorColor: Colors.white,
           ),
         ),
+        backgroundColor: const Color.fromARGB(255, 109, 123, 100),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _contentController,
-              style: const TextStyle(fontSize: 16),
-              decoration: const InputDecoration(
-                hintText: 'Note',
-                hintStyle: TextStyle(
-                  color: Colors.grey,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _contentController,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w200,
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ),
-                border: InputBorder.none,
-              ),
-              maxLines: null,
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.pop(
-                      context,
-                      Note(
-                        title: _titleController.text,
-                        content: _contentController.text,
-                        dateTime: DateTime.now(),
-                      ),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                decoration: const InputDecoration(
+                  hintText: 'Enter Note',
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(100, 255, 255, 255),
                   ),
-                  child: const Icon(Icons.save),
+                  border: InputBorder.none,
                 ),
+                cursorColor: Colors.white,
+                maxLines: null,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(
+            context,
+            Note(
+              title: _titleController.text,
+              content: _contentController.text,
+              dateTime: DateTime.now(),
+            ),
+          );
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        backgroundColor: const Color.fromARGB(255, 87, 98, 80),
+        child: const Icon(Icons.save),
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.endFloat, // Adjust the location
     );
   }
 }
-

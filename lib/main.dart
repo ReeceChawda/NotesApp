@@ -15,15 +15,22 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
 
   // main body
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Notes App',
-      home: NotesList(),
+    return MaterialApp(
+      theme: ThemeData(
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.white,
+          selectionColor: Color.fromARGB(200, 87, 98, 80),
+          selectionHandleColor: Color.fromARGB(255, 87, 98, 80),
+        ),
+      ),
+      title: 'Notes',
+      home: const NotesList(),
       debugShowCheckedModeBanner: false,
     );
   }
