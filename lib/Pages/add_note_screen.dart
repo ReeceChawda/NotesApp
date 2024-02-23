@@ -50,6 +50,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 109, 123, 100),
+        iconTheme: IconThemeData(
+            color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -93,7 +96,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           borderRadius: BorderRadius.circular(15),
         ),
         backgroundColor: const Color.fromARGB(255, 87, 98, 80),
-        child: const Icon(Icons.save),
+        child: const Icon(Icons.save,
+          color: Colors.white,
+        ),
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.endFloat, // Adjust the location

@@ -8,6 +8,9 @@ class NoteSearch extends SearchDelegate<Note?> {
   NoteSearch(this.notes);
 
   @override
+  String get searchFieldLabel => 'Search Note';
+
+  @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
       appBarTheme: AppBarTheme(
@@ -16,6 +19,7 @@ class NoteSearch extends SearchDelegate<Note?> {
       scaffoldBackgroundColor: const Color.fromARGB(255, 30, 30, 30),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
+          fontSize: 20,
           color: Color.fromARGB(100, 255, 255, 255),
         ),
         border: InputBorder.none,
@@ -62,6 +66,12 @@ class NoteSearch extends SearchDelegate<Note?> {
   }
 
   @override
+  TextStyle get searchFieldStyle => TextStyle(
+        fontSize: 20,
+        color: Colors.white,
+      );
+
+  @override
   Widget buildResults(BuildContext context) {
     return _buildSearchResults();
   }
@@ -103,6 +113,8 @@ class NoteSearch extends SearchDelegate<Note?> {
                     fontWeight: FontWeight.w400,
                     color: Colors.white,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               subtitle: Column(
@@ -121,7 +133,7 @@ class NoteSearch extends SearchDelegate<Note?> {
                         color: Colors.white,
                       ),
                       maxLines: 5,
-                      overflow: TextOverflow.fade,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Padding(

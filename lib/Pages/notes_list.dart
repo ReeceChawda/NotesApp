@@ -38,18 +38,24 @@ class _NotesListState extends State<NotesList> {
             'Notes',
             style: TextStyle(
               fontWeight: FontWeight.w400,
+              color: Colors.white,
             ),
           ),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search_sharp),
+            icon: Icon(
+              Icons.search_sharp,
+            ),
             onPressed: () {
               showSearch(context: context, delegate: NoteSearch(notes));
             },
           ),
         ],
         backgroundColor: const Color.fromARGB(255, 109, 123, 100),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: ListView.builder(
         itemCount: notes.length,
@@ -74,6 +80,8 @@ class _NotesListState extends State<NotesList> {
                         fontWeight: FontWeight.w400,
                         color: Colors.white,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   subtitle: Column(
@@ -92,7 +100,7 @@ class _NotesListState extends State<NotesList> {
                             color: Colors.white,
                           ),
                           maxLines: 5,
-                          overflow: TextOverflow.fade,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Padding(
@@ -109,8 +117,7 @@ class _NotesListState extends State<NotesList> {
                     ],
                   ),
                 ),
-              )
-          );
+              ));
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -119,7 +126,10 @@ class _NotesListState extends State<NotesList> {
           borderRadius: BorderRadius.circular(15),
         ),
         backgroundColor: const Color.fromARGB(255, 87, 98, 80),
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -224,4 +234,3 @@ class _NotesListState extends State<NotesList> {
     return DateFormat('dd MMM yyyy\nhh:mm a').format(dateTime);
   }
 }
-
