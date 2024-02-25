@@ -1,4 +1,5 @@
 // hive_db.dart
+
 import 'package:hive/hive.dart';
 import 'note_model.dart';
 

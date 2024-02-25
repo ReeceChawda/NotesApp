@@ -1,11 +1,18 @@
+// search_note.dart
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/note_model.dart';
 
+
 class NoteSearch extends SearchDelegate<Note?> {
   final List<Note?> notes;
+  final void Function(Note) onEditNote;
+  final void Function(Note) onConfirmDelete;
 
-  NoteSearch(this.notes);
+  NoteSearch(this.notes, {required this.onEditNote, required this.onConfirmDelete});
+
+
 
   @override
   String get searchFieldLabel => 'Search Note';
@@ -20,6 +27,7 @@ class NoteSearch extends SearchDelegate<Note?> {
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: TextStyle(
           fontSize: 20,
+          fontWeight: FontWeight.w400,
           color: Color.fromARGB(100, 255, 255, 255),
         ),
         border: InputBorder.none,
@@ -30,7 +38,6 @@ class NoteSearch extends SearchDelegate<Note?> {
         selectionHandleColor: Color.fromARGB(255, 87, 98, 80),
       ),
       textTheme: ThemeData.dark().textTheme.copyWith(
-          // Set the text color of the input
           ),
     );
   }
@@ -96,7 +103,10 @@ class NoteSearch extends SearchDelegate<Note?> {
       itemBuilder: (context, index) {
         final note = searchResults.elementAt(index);
         if (note != null) {
-          return Card(
+          return GestureDetector(
+            onTap: () => onEditNote(note),
+            onLongPress: () => onConfirmDelete(note),
+          child: Card(
             elevation: 5,
             margin: const EdgeInsets.fromLTRB(8, 15, 8, 0),
             shape: RoundedRectangleBorder(
@@ -150,7 +160,7 @@ class NoteSearch extends SearchDelegate<Note?> {
                 ],
               ),
             ),
-          );
+          ));
         } else {
           return Container(); // or any other placeholder widget
         }

@@ -19,6 +19,8 @@ class _NotesListState extends State<NotesList> {
   late List<Note> notes;
   late List<Note> filteredNotes;
 
+  Duration get transitionDuration => const Duration(milliseconds: 100);
+
   @override
   void initState() {
     super.initState();
@@ -44,11 +46,18 @@ class _NotesListState extends State<NotesList> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.search_sharp,
             ),
             onPressed: () {
-              showSearch(context: context, delegate: NoteSearch(notes));
+              showSearch(
+                context: context,
+                delegate: NoteSearch(
+                  notes,
+                  onEditNote: (note) => _editNote(context, note),
+                  onConfirmDelete: (note) => _confirmDelete(context, note),
+                ),
+              );
             },
           ),
         ],
@@ -188,7 +197,7 @@ class _NotesListState extends State<NotesList> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Cancel',
@@ -202,7 +211,7 @@ class _NotesListState extends State<NotesList> {
             TextButton(
               onPressed: () {
                 _deleteNote(note);
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Delete',
@@ -217,7 +226,7 @@ class _NotesListState extends State<NotesList> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          backgroundColor: const Color.fromARGB(255, 109, 123, 100),
+          backgroundColor: const Color.fromARGB(255, 87, 98, 80),
         );
       },
     );
