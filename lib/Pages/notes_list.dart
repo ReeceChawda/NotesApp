@@ -1,11 +1,12 @@
 // notes_list.dart
 
 import 'package:flutter/material.dart';
-import 'package:notes/Pages/search_note.dart';
-import '../models/note_model.dart';
-import 'add_note_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:hive/hive.dart';
+import 'add_note_screen.dart';
+import '../models/note_model.dart';
+import 'package:notes/Pages/search_note.dart';
+import 'package:notes/Pages/drawer_bar.dart';
 
 class NotesList extends StatefulWidget {
   const NotesList({super.key});
@@ -65,7 +66,18 @@ class _NotesListState extends State<NotesList> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
       ),
+      drawer: AppDrawer(),
       body: ListView.builder(
         itemCount: notes.length,
         itemBuilder: (context, index) {

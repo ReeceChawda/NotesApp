@@ -65,4 +65,14 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+task wrapper(type: Wrapper){
+    gradleVersion = '7.2'
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
+
+android {
+    compileSdkVersion 34
+}
