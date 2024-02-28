@@ -6,7 +6,6 @@ import 'package:hive/hive.dart';
 import 'add_note_screen.dart';
 import '../models/note_model.dart';
 import 'package:notes/Pages/search_note.dart';
-import 'package:notes/Pages/drawer_bar.dart';
 
 class NotesList extends StatefulWidget {
   const NotesList({super.key});
@@ -18,7 +17,6 @@ class NotesList extends StatefulWidget {
 class _NotesListState extends State<NotesList> {
   late Box<Note> notesBox;
   late List<Note> notes;
-  late List<Note> filteredNotes;
 
   Duration get transitionDuration => const Duration(milliseconds: 100);
 
@@ -27,7 +25,6 @@ class _NotesListState extends State<NotesList> {
     super.initState();
     notesBox = Hive.box<Note>('notes');
     notes = notesBox.values.toList();
-    filteredNotes = List.from(notes);
   }
 
   @override
@@ -66,18 +63,7 @@ class _NotesListState extends State<NotesList> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          },
-        ),
       ),
-      drawer: AppDrawer(),
       body: ListView.builder(
         itemCount: notes.length,
         itemBuilder: (context, index) {

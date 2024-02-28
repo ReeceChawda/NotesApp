@@ -105,7 +105,6 @@ class NoteSearch extends SearchDelegate<Note?> {
         if (note != null) {
           return GestureDetector(
             onTap: () => onEditNote(note),
-            onLongPress: () => onConfirmDelete(note),
           child: Card(
             elevation: 5,
             margin: const EdgeInsets.fromLTRB(8, 15, 8, 0),
@@ -149,7 +148,7 @@ class NoteSearch extends SearchDelegate<Note?> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: Text(
-                      _formatDateTime(notes[index]!.dateTime),
+                      _formatDateTime(note.dateTime),
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w300,
