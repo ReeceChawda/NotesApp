@@ -103,8 +103,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           color: Colors.white,
         ),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
